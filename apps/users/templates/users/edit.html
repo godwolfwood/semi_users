@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static "users/style.css" %}">
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1>Edit User </h1>
+      <form action="{% url 'user_show' number=request.session.id%}" method="post">
+        {% csrf_token %}
+        <label>First Name:</label> 
+        <input type="text" name="first_name" value = {{user.first_name}}>
+        <label>Last Name:</label> 
+        <input type="text" name="last_name" value = {{user.last_name}}>
+        <label>Email:</label> 
+        <input type="text" name="email" value = {{user.email}}>
+        <input type="submit" value="Update">
+      </form>
+      <a href="{% url 'user_show' number=request.session.id %}">Show</a>
+      <a href="{% url 'user_index' %}">Go Back</a>
+    </div>
+  </body>
+</html>

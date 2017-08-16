@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static "users/style.css" %}">
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1>User {{user.id}}</h1> 
+      <p>Full Name: {{user.first_name}} {{user.last_name}}</p>
+      <p>Email: {{user.email}}</p>
+      <p>Created at: {{user.created_at}}</p>
+      <a href="{% url 'user_edit' number=request.session.id %}">Edit</a>
+      <a href="{% url 'user_destroy' number=request.session.id %}">Delete</a>
+    </div>
+  </body>
+</html>

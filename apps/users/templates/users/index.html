@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static "users/style.css" %}">
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1>Users</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Created At</th>
+            <th>actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in users%}
+            <tr>
+              <td>{{user.id}}</td>
+              <td><a href="{% url 'user_show' number=user.id %}">{{user.first_name}} {{user.last_name}}</a></td>
+              <td>{{user.email}}</td>
+              <td>{{user.created_at}}</td>
+              <td>
+                <a href="{% url 'user_show' number=user.id %}">Show</a>
+                <a href="{% url 'user_edit' number=user.id %}">Edit</a>
+                <a href="{% url 'user_destroy' number=user.id %}">Delete</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <a href="{% url 'user_new' %}">Add a new user</a>
+    </div>
+  </body>
+</html>
