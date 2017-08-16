@@ -5,7 +5,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.contrib.messages import get_messages
-from .models import User
+from .models import *
 # Create your views here.
 
 #GET
@@ -46,6 +46,11 @@ def destroy(request,number):
 #POST
 def create(request):
     if request.method == "POST":
+        errors = User.objects.basic_validator(request.POST)
+        if len(errors):
+            for tag, error in errors.iteritems():
+                messages.error(request, error, extra_tags=tag)
+            return redirect(reverse('user_new'))
         new = User.objects.create( first_name = request.POST['first_name'], last_name = request.POST['last_name'], email = request.POST['email'])
         request.session["id"] = new.id
         return redirect(reverse('user_show',args={request.session["id"]}))
